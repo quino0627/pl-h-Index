@@ -4,7 +4,7 @@
 		module="temp-module-98ec89c315ed408f615fff2c4774286d17323b01"
 		revision="1.2.4"
 		status="integration"
-		publication="20181124180710"
+		publication="20181126004550"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>

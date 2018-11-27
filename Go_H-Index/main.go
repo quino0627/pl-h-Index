@@ -74,6 +74,7 @@ func makeResultFile(users UserList){ //UserList를 parameter로 받음
 //리스트를 소팅하여 인덱스와 값을 비교 후 h-index값을 구하는 함수합니다.
 func getHIndex( List []int) int { //parameter: int array, returns int
 	sortedList := quickSort(List)
+	len := len(sortedList)
 	for i, _ := range sortedList{
 		if sortedList[i] < (i+1){
 			return i //조건에 맞을 시 리턴됩니다.
@@ -81,7 +82,7 @@ func getHIndex( List []int) int { //parameter: int array, returns int
 
 	}
 
-	return 0 //이것은 리턴되지 않습니다. 하지만 지우면 에러가 납니다.
+	return len //if문에 걸리지 않으면 len을 return한다.
 }
 
 //Ramdom Quick Sort

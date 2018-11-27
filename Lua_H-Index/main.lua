@@ -1,4 +1,4 @@
-local write = io.write --io.write을 write으로 할당하여 간편하게 사용하기 위함입니다.
+local write = io.write --io.write을 write으로 선언하여 간편하게 사용하기 위함입니다.
 math.randomseed((os.time())) --randomseed에 랜덤 값을 주어 random함수 호출 시 매번 다른 값이 나오게 합니다.
 --기본 정보와 프로그램의 명세를 콘솔에 출력하는 부분입니다.
 print("고려대학교 정보대학 컴퓨터학과\n2017320124 송동욱\n")
@@ -11,21 +11,7 @@ print("resultFile.txt contains a ascending list of people based on the h-index\n
 --그 리턴된 값을 require을 이용하여 obj 변수에 담습니다.
 obj = require("userList")
 
---obj에 접근하여 json값을 파싱한 값을 콘솔에 출력합니다.
-for i = 1,#obj.users do --#은 다른 언어에서 length와 같은 기능을합니다
 
-    print("User Name : ",obj.users[i].name)
-    print("User Age : ",obj.users[i].age, "\nUser Citatation List")
-    write("[ ")
-    --저장하기 때문에 
-    for j = 1,#obj.users[i].citationList do
-        write(obj.users[i].citationList[j])
-        write(" ")
-        -- print w/o newline --> io.write
-    end
-    print("]\n")
-
-end
 --테이블이 슬라이스 기능을 지원하지 않기 때문에 슬라이스 function을 만들어 주었습니다.
 function slice(tbl, first, last)
     local sliced = {}
@@ -81,6 +67,7 @@ function getHIndex(array)
             return j
         end
     end
+    return len --if문에서 걸려 return 하지 않으면 len을 return합니다.
 end
 
 for i=1,#obj.users do
@@ -123,6 +110,23 @@ end
 
 quickSortUser(1,#copied.users)
 
+--여기부터는 Output을 출력하는 과정입니다.
+--obj에 접근하여 json값을 파싱한 값을 콘솔에 출력합니다.
+for i = 1,#obj.users do --#은 다른 언어에서 length와 같은 기능을합니다
+
+    print("User Name : "..obj.users[i].name)
+    print("User Age : ",obj.users[i].age, "\nUser Citatation List")
+    write("[ ")
+    --저장하기 때문에 
+    for j = 1,#obj.users[i].citationList do
+        write(obj.users[i].citationList[j])
+        write(" ")
+        -- print w/o newline --> io.write
+    end
+    print("]")
+    print(obj.users[i].name, "의 h-index는 ", copied.users[i].hindex, "\n")
+
+end
 --output 파일을 만드는 과정입니다.
 file = io.open("LuaResultFile.txt","w+") --w+는 새로운 파일을 생성한다는 뜻입니다 +가 없으면 기존 파일에 덧붙입니다..
 for i = 1,#copied.users do --file:write을 이용하여 파일에 output을 쓰는 과정입니다.
